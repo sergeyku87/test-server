@@ -51,6 +51,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    "config.middleware.debug.DebugIPMiddleware",
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -130,4 +132,55 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = "users.CustomUser"
 
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "verbose": {
+            "format": "%(asctime)s - %(levelname)s - %(name)s - %(message)s",
+        },
+        "simple": {
+            "format": "%(asctime)s - %(levelname)s - %(message)s",
+        },
+    },
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+            "formatter": "simple",
+        },
+        "file": {
+            "class": "logging.FileHandler",
+            "level": "DEBUG",
+            "filename": "sql_queries.log",
+            "formatter": "verbose"
+        },
+    },
+    "loggers": {
+        "django.request": {
+            "level": "DEBUG",
+            "handlers": ["console"],
+            "propagate": False,
+        },
+        "django.request.ip": {
+            "level": "DEBUG",
+            "handlers": ["console"],
+            "propagate": False,
+        },
+        "django.server": {
+            "level": "WARNING",
+            "handlers": ["console"],
+            "propagate": False,
+        },
+        "django.db.backends": {
+            "level": "DEBUG",
+            "handlers": ["file"],
+            "propagate": False,
+        },
+        "tg_users": {
+            "level": "DEBUG",
+            "handlers": ["console"],
+            "propagate": False,
+        },
+    },
 
+}
