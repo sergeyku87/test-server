@@ -6,4 +6,5 @@ log = logging.getLogger(__name__)
 
 
 def index(request):
-    return render(request, "base.html", {})
+    context = {"body": {"ass": "big", "cunt": "small"}}
+    return render(request, "base.html", context)
