@@ -16,7 +16,7 @@ class TelegramUser(models.Model):
                 message="Only digist",
                 code="invalid_digists",
             ),
-            MinLengthValidator(2),
+            MinLengthValidator(3),
         ]
     )
     first_name = models.CharField(
@@ -35,5 +35,14 @@ class TelegramUser(models.Model):
     def __str__(self):
         return f"{self.first_name} {self.second_name} {self.father_name}"
 
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super.save(*args, **kwargs)
+
     def clean(self):
         ...
+
+
+# class TimeTracking:
+    # timestamp = models.DateTimeField(auto_now=True)
+    # chat_id = models.ForeignKey(TelegramUser, on_delete=models.CASCADE,)

@@ -8,9 +8,64 @@
     <link rel="stylesheet" href={% static "styles/css/bootstrap.min.css" %}>
     <link rel="icon" href={% static "styles/images/fav/fav16.png" %}>
     <title></title>
+    <style>
+        .debug-row {
+            border: 1px solid blue;
+            background-color: rgba(0, 123, 255, 0.05);
+        }
+        .debug-col {
+            border: 1px solid red;
+            min-height: 20px;
+        }
+    </style>
 </head>
 <body>
-    <h1>hello</h1>
+    <h1>{{ request.method }}</h1>
+    {% if is_auth %}
+        {{ chat_id }}
+    {% endif %}
+    <div class="container-fluid">
+        <form method="post">
+            {% csrf_token %}
+            <div class="row mb-3">
+                <div class="col mb-3">
+                    <input
+                        id="first-name"
+                        type="text"
+                        class="form-control"
+                        placeholder="First Name"
+                        name="first_name"
+                    >
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col mb-3">
+                    <input
+                        id="second-name"
+                        type="text"
+                        class="form-control"
+                        placeholder="Second Name"
+                        name="second_name"
+                    >
+                </div>
+            </div>
+            <div class="row mb-3">
+                <!--<label for="father-name">Father Name</label>-->
+                <div class="col mb-3">
+                    <input
+                        id="father-name"
+                        type="text"
+                        class="form-control"
+                        placeholder="Father Name"
+                        name="father_name"
+                    >
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">
+                Send
+            </button>
+        </form>
+    </div>
     <script src={% static "styles/js/bootstrap.min.js" %}></script>
 </body>
 </html>
