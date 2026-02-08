@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Экотекс
+{% endblock %}
+
+{% block content %}
+    
+    {% if tg_user %}
+        {% include "../includes/hello.html" %}
+    {% elif not tg_user and not errors%}
+        {% include "../includes/form_reg.html" %}
+    {% elif errors %}
+        {% include "../includes/error.html" %}
+    {% endif %}
+{% endblock content %}

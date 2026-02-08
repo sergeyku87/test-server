@@ -24,5 +24,4 @@ class TimeStampMiddleware:
 
     def __call__(self, request):
         request.timestamp = tz.localtime(tz.now()).strftime("%d.%m.%Y %H:%M")
-
         return self.get_response(request)

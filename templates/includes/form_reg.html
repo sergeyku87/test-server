@@ -1,0 +1,63 @@
+<div class="container-fluid">
+<div class="row justify-content-center">
+<div class="col-md-6">
+<div class="card">
+    <div class="card-header">
+        <h2 class="h5 mb-o">Регистрация</h2>
+    </div>
+    <div class="card-body">
+    <form method="post">
+        {% csrf_token %}
+        <div class="row mb-3">
+            <div class="col mb-3">
+                <input type="hidden" name="chat_id" value="{{ request.GET.chat_id }}">
+                <input
+                    id="first-name"
+                    type="text"
+                    class="form-control"
+                    placeholder="Имя"
+                    name="first_name"
+                    minlength=3
+                    maxlength=50
+                    required
+                >
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col mb-3">
+                <input
+                    id="second-name"
+                    type="text"
+                    class="form-control"
+                    placeholder="Фамилия"
+                    name="second_name"
+                    minlength=3
+                    maxlength=50
+                    required
+                >
+            </div>
+        </div>
+        <div class="row mb-3">
+            <!--<label for="father-name">Father Name</label>-->
+            <div class="col mb-3">
+                <input
+                    id="father-name"
+                    type="text"
+                    class="form-control"
+                    placeholder="Отчество"
+                    name="father_name"
+                    minlength=3
+                    maxlength=50
+                    required
+                >
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary d-block mx-auto">
+            Отправить
+        </button>
+    </form>
+</div>
+</div>
+</div>
+</div>
+</div>
