@@ -1,6 +1,6 @@
 <section class="bg-light text-black text-center">
     <div class="container-fluid">
-        <h1 class="display-5">Приветсвую, {{ tg_user.first_name }}!</h1>
+        <h1 class="display-5">Приветсвую, {{ request.user.first_name }}!</h1>
         <p class="lead mt-3">{{ request.timestamp }}</p>
     </div>
 </section>

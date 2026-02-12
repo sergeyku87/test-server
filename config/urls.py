@@ -5,7 +5,7 @@ from django.conf import settings
 urlpatterns = [
     #path('admin/', admin.site.urls),
     path("tg-user/", include("tg_users.urls")),
-    path("users", include("users.urls")),
+    path("users/", include("users.urls")),
 ]
 
 if settings.DEBUG:

@@ -1,10 +1,16 @@
+from typing import Iterable
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator, MinLengthValidator
+from django.contrib.auth import get_user_model
+from django.db import transaction
 
-import re
+import logging
 
 from constants import MAX_COUNT_CHARS, MIN_COUNT_CHARS
+from utils import translit_ru, gen_seq
+
+log = logging.getLogger(__name__)
 
 
 class TelegramUser(models.Model):
@@ -35,8 +41,24 @@ class TelegramUser(models.Model):
     def __str__(self):
         return f"{self.first_name} {self.second_name} {self.father_name}"
 
-    def clean(self):
-        ...
+    def save(self, *args, **kwargs):
+        with transaction.atomic():
+            super().save(*args, **kwargs)
+            if get_user_model().objects.filter(chat_id=self.chat_id).exists():
+                return
+            try:
+                username = f"{translit_ru(self.first_name)}_{translit_ru(self.second_name)}"
+                get_user_model().objects.create(
+                    username=username,
+                    first_name=self.first_name,
+                    last_name=self.second_name,
+                    father_name=self.father_name,
+                    password=gen_seq(),
+                    chat_id=self.chat_id
+                )
+            except Exception as e:
+                log.exception(f"Error create chat_id={self.chat_id}: {e}")
+                raise
 
 
 class TimeTracking(models.Model):
@@ -59,3 +81,24 @@ class TimeTracking(models.Model):
     time_as = models.CharField(
         max_length=MAX_COUNT_CHARS
     )
+
+
+# def post_save_create(sender, created, instance, **kwargs):
+#     if created:
+#         try:
+#             get_user_model().objects.create(
+#                 username=f"{translit_ru(instance.first_name)}_{translit_ru(instance.second_name)}",
+#                 first_name=instance.first_name,
+#                 last_name=instance.second_name,
+#                 father_name=instance.father_name,
+#                 password=gen_seq(),
+#                 chat_id=instance.chat_id
+#             )
+#         except:
+#             instance.delete()
+#             raise
+
+
+
+
+
