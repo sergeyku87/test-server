@@ -24,8 +24,6 @@ class CustomLoginView(View):
         return response
 
     def get(self, request, *args, **kwargs):
-        log.info(request.session.items())
-        log.info(request.COOKIES)
         response = render(
             request,
             self.template_name,
@@ -37,9 +35,9 @@ class CustomLoginView(View):
         form = CustomAuthenticationForm(data=request.POST)
         if form.is_valid():
             user = form.get_user()
-            if user and user.is_active():
+            if user and user.is_active:
                 login(request, user)
-                return redirect("base")
+                return redirect("/")
 
         return render(
             request,
@@ -63,7 +61,7 @@ class CustomCreateView(View):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect("base")
+            return redirect("/")
         return render(
             request,
             self.template_name,

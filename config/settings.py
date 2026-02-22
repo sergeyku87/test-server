@@ -16,6 +16,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    "events.apps.EventsConfig",
     "users.apps.UsersConfig",
     "tg_users.apps.TgUsersConfig",
 ]
@@ -127,6 +128,12 @@ LOGGING = {
             "filename": "sql_queries.log",
             "formatter": "verbose"
         },
+        "file_info": {
+            "class": "logging.FileHandler",
+            "level": "INFO",
+            "filename": "info.log",
+            "formatter": "simple"
+        },
     },
     "loggers": {
         "django.request": {
@@ -155,6 +162,11 @@ LOGGING = {
             "propagate": False,
         },
         "users": {
+            "level": "DEBUG",
+            "handlers": ["console", "file_info"],
+            "propagate": False,
+        },
+        "events": {
             "level": "DEBUG",
             "handlers": ["console"],
             "propagate": False,

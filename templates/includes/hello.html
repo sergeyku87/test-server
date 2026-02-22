@@ -1,6 +1,35 @@
-<section class="bg-light text-black text-center">
-    <div class="container-fluid">
-        <h1 class="display-5">Приветсвую, {{ request.user.first_name }}!</h1>
-        <p class="lead mt-3">{{ request.timestamp }}</p>
+<div class="container mt-2">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h2 class="text-center text-primary mb-2">
+                Приветствую, {{ request.user }}!
+            </h2>
+            {% if event %}
+                <div class="card bg-light border-primary shadow-sm">
+                    <div class="card-body">
+                <h2 class="card-title h4 text-center mb-3">
+                    Вашe последнее действие
+                </h2>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p class="mb-1 text-center">
+                            <strong>Событие:</strong>
+                            {{ event.get_event_type_display }}
+                        </p>
+                </div>
+                <div class="col-md-6">
+                    <p class="mb-1 text-center">
+                        <strong>
+                            Время:
+                        </strong>
+                        {{ event.timestamp }}
+                    </p>
+
+                </div>
+                </div>
+            </div>
+                </div>
+            {% endif %}
+        </div>
     </div>
-</section>
+</div>

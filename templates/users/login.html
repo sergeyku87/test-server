@@ -1,80 +1,29 @@
 {% extends "base.html" %}
 
-{% block content %}
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">
-      Send
-    </button>
-  </form>
+{% block title %}
+  Вход
 {% endblock %}
 
-{% comment %} {% extends "base.html" %}
-
 {% block content %}
-  <!-- Если в запросе передан GET-параметр с указанием страницы,
-    куда надо перейти после входа. -->
-  {% if next %}
-    <!-- Если пользователь уже залогинен, но не обладает нужными правами. -->
-    {% if user.is_authenticated %}
-      <p>
-        У вашего аккаунта нет доступа к этой странице.
-        Чтобы продолжить, войдите в систему с аккаунтом,
-        у которого есть доступ.
-      </p>
-    {% else %}
-      <p>
-        Пожалуйста, войдите в систему,
-        чтобы просматривать эту страницу.
-      </p>
-    {% endif %}
-  {% endif %}
-
-  <div class="container-fluid">
-    <div class="row justify-content-center">
-    <div class="col-md-6">
-
-  <div class="card">
-    <div class="card-header">
-      <h2 class="h5 mb-o">Регистрация</h2>
-    </div>
-    <div class="card-body">
-      <!-- В атрибуте action указываем адрес, куда должен отправляться запрос. -->
-      <form method="post">
-        {% csrf_token %}
-        <div class="row mb-3">
-          <div class="col mb-3">
-            <input
-              class="form-control"
-              type="text"
-              placeholder="Никнейм"
-              name="username"
-              required
-            >
+<div class="container mt-3">
+  <div class="row justify-content-center">
+      <div class="col-md-6">
+          <div class="card">
+              <div class="card-header">
+                  <h4>Вход</h4>
+              </div>
+              <div class="card-body">
+                <form method="post">
+                  {% csrf_token %}
+                  {{ form.as_p }}
+                  <button type="submit" class="btn btn-primary w-100">
+                    Отправить
+                  </button>
+                </form>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="row mb-3">
-          <div class="col mb-3">
-            <input
-              class="form-control"
-              type="password"
-              placeholder="Пароль"
-              name="password"
-              required
-            >
-          </div>
-        </div>
-        <!-- В скрытом поле передаём параметр next,
-          это URL для переадресации после логина. -->
-        <input type="hidden" name="next" value="{{ next }}">
-        <button type="submit" class="btn btn-primary d-block mx-auto">
-          Отправить
-        </button>
-      </form>
-    </div>
   </div>
-</div>
-</div>
-</div>
-{% endblock %} {% endcomment %}
+{% endblock %}
+

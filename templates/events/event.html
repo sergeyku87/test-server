@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Учет времени
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-1">
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center">
+                <h2 class="mb-4">Выберите действие</h2>
+                <form method="post">
+                    {% csrf_token %}
+                    <button
+                        type="submit"
+                        class="btn btn-primary w-100 mb-3"
+                        name="action"
+                        value="clock_in"
+                    >
+                        Приход
+                    </button>
+                    <button
+                        type="submit"
+                        class="btn btn-primary w-100 mb-3"
+                        name="action"
+                        value="clock_out"
+                    >
+                        Уход
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

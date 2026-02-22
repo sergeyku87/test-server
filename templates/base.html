@@ -6,12 +6,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href={% static "styles/css/bootstrap.min.css" %}>
-    <link rel="icon" href={% static "styles/images/fav/fav16.png" %}>
+    <link rel="icon" href={% static "styles/images/fav/favicon-32x32.png" %}>
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
     <header>{% include "includes/header.html" %}</header>
-    <main class="bg-light py-5">{% block content %}{% endblock %}</main>
+    {% if request.user.is_authenticated %}
+        {% include "includes/hello.html" %}
+    {% endif %}
+
+    <main class="bg-white border rounded shadow-sm">
+        {% block content %}{% endblock %}
+    </main>
+    {% comment %} <h1>Приветсвую, {{ request.user }}</h1>
+    {% if event %}
+        <h2>your last event {{ event.event_type }}</h2>
+        <h2>last visit {{ event.timestamp }}</h2>
+    {% endif %}
+    <main class="bg-light">{% block content %}{% endblock %}</main> {% endcomment %}
     <script src={% static "styles/js/bootstrap.min.js" %}></script>
 </body>
 </html>

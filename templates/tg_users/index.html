@@ -10,11 +10,4 @@
     {% else %}
         {% include "../includes/form_reg.html" %}
     {% endif %}
-    {% comment %} {% if tg_user %}
-        {% include "../includes/hello.html" %}
-    {% elif not tg_user and not errors%}
-        {% include "../includes/form_reg.html" %}
-    {% elif errors %}
-        {% include "../includes/error.html" %}
-    {% endif %} {% endcomment %}
 {% endblock content %}
