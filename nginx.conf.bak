@@ -1,16 +1,19 @@
 worker_processes  1;
 # user www-data;  <-- Закомментировано!
 
-error_log  $PREFIX/var/log/nginx/error.log;
-pid        $PREFIX/var/run/nginx.pid;
+# ✅ Абсолютные пути
+error_log  /data/data/com.termux/files/usr/var/log/nginx/error.log;
+pid        /data/data/com.termux/files/usr/var/run/nginx.pid;
 
 events {
     worker_connections  1024;
 }
 
 http {
-    include       $PREFIX/etc/nginx/mime.types;
+    # ✅ Абсолютный путь к mime.types
+    include       /data/data/com.termux/files/usr/etc/nginx/mime.types;
     default_type  application/octet-stream;
+
     sendfile        on;
     keepalive_timeout  65;
 
@@ -23,12 +26,7 @@ http {
             alias /data/data/com.termux/files/home/www/test-server/staticfiles/;
         }
 
-        # Медиа файлы (если есть)
-        location /media/ {
-            alias /data/data/com.termux/files/home/www/test-server/media/;
-        }
-
-        # Проксирование на Gunicorn
+        # Приложение
         location / {
             proxy_pass http://127.0.0.1:8000;
             proxy_set_header Host $host;
