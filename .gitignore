@@ -1,6 +1,19 @@
-*/__pycache__/*
-*.sqlite3
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Django
 *.log
-venv
-env
+db.sqlite3
+media/
+staticfiles/
+
+# Termux
+*.pid
+logs/
 .env
+
+# IDE
+.vscode/
+.idea/

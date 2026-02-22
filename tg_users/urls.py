@@ -7,5 +7,5 @@ app_name = "tg_users"
 
 
 urlpatterns = [
-    re_path("^(?P<chat_id>\d+)/$", views.CheckView.as_view(), name="index")
+    re_path(r"^(?P<chat_id>\d+)/$", views.CheckView.as_view(), name="index")
 ]
