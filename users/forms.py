@@ -47,5 +47,3 @@ class CustomUserCreationForm(BootstrapFormMixin, UserCreationForm):
             "last_name",
             "father_name",
         ]
-
-

@@ -9,4 +9,3 @@ urlpatterns = [
     path("tg-user/", include("tg_users.urls")),
     path("users/", include("users.urls")),
 ]
-

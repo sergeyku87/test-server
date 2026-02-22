@@ -7,4 +7,3 @@ class TelegramUserForm(forms.ModelForm):
     class Meta:
         model = TelegramUser
         fields = "chat_id", "first_name", "second_name", "father_name"
-
