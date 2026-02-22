@@ -1,0 +1,40 @@
+worker_processes  1;
+# user www-data;  <-- Закомментировано!
+
+error_log  $PREFIX/var/log/nginx/error.log;
+pid        $PREFIX/var/run/nginx.pid;
+
+events {
+    worker_connections  1024;
+}
+
+http {
+    include       $PREFIX/etc/nginx/mime.types;
+    default_type  application/octet-stream;
+    sendfile        on;
+    keepalive_timeout  65;
+
+    server {
+        listen 8080;
+        server_name localhost;
+
+        # Статика Django
+        location /static/ {
+            alias /data/data/com.termux/files/home/www/test-server/staticfiles/;
+        }
+
+        # Медиа файлы (если есть)
+        location /media/ {
+            alias /data/data/com.termux/files/home/www/test-server/media/;
+        }
+
+        # Проксирование на Gunicorn
+        location / {
+            proxy_pass http://127.0.0.1:8000;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+        }
+    }
+}
