@@ -106,6 +106,10 @@ INTERNAL_IPS = [
     '127.0.0.1',
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    "http://192.168.1.100:8080",
+]
+
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
