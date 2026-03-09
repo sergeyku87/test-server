@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Учет времени
+{% endblock %}
+
+{% block content %}
+    {% if request.user.is_superuser %}
+        <div class="table-responsive">
+            <table class="table table-striped table-hover table-bordered">
+                <thead class="table-primary">
+                    <tr>
+                        <th scope="col" class="text-center">Дата</th>
+                        <th scope="col" class="text-center">Имя</th>
+                        <th scope="col" class="text-center">Время Прихода</th>
+                        <th scope="col" class="text-center">Время Ухода</th>
+                        <th scope="col" class="text-center">Количество</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for event in events %}
+                        <tr>
+                            <td class="text-center">{{ event.date }}</td>
+                            <td class="text-center">{{ event.user__username }}</td>
+                            <td class="text-center">{{ event.clock_in_time }}</td>
+                            <td class="text-center">{{ event.clock_out_time }}</td>
+                            <td class="text-center">{{ event.work_duration }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="table-responsive">
+            <table class="table table-striped table-hover table-bordered">
+                <thead class="table-primary">
+                    <tr>
+                        <th scope="col" class="text-center">Дата</th>
+                        <th scope="col" class="text-center">Имя</th>
+                        <th scope="col" class="text-center">Событие</th>
+                        <th scope="col" class="text-center">Время</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for event in events %}
+                        <tr>
+                            <td class="text-center">{{ event.date }}</td>
+                            <td class="text-center">{{ event.user }}</td>
+                            <td class="text-center">{{ event.get_event_type_display }}</td>
+                            <td class="text-center">{{ event.timestamp }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+{% endblock %}
+
