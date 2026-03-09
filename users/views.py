@@ -37,7 +37,7 @@ class CustomLoginView(View):
             user = form.get_user()
             if user and user.is_active:
                 login(request, user)
-                return redirect("/")
+                return redirect("events:events-list")
 
         return render(
             request,
@@ -59,6 +59,7 @@ class CustomCreateView(View):
     def post(self, request, *args, **kwargs):
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
+            log.info("; ".join([f"{k}: {v}" for k,v in form.cleaned_data.items()]))
             user = form.save()
             login(request, user)
             return redirect("/")
